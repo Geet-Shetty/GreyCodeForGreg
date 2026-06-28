@@ -127,13 +127,13 @@ bool VerifyGreyCode(GreyCodeSequence greyCode)
         }
 
         // duplicate found 
-        if (gcSet.insert(greyCode.sequence[i]).second)
+        if (!gcSet.insert(greyCode.sequence[i]).second)
         {
             return false; 
         }
 
         // bit changes over 1 means generation failed 
-        if (bitChanges > 1)
+        if (bitChanges != 1)
         {
             //std::cout << "Bitchanges: " << bitChanges << std::endl;
             return false; 
@@ -152,12 +152,27 @@ int main()
         std::cout << greyCode.sequence[i] << std::endl; 
     }
 
-    if (!VerifyGreyCode(greyCode))
+    if (VerifyGreyCode(greyCode))
     {
         std::cout << "WORKED" << std::endl;
     }
 
     std::cout << "==============================" << std::endl;
+
+    GreyCodeSequence test{}; 
+    test.nbits = 3; 
+    test.sequence_len = 8; 
+    uint64_t array[] = {1,1,1,1,1,1,1,1};
+    test.sequence = array; 
+
+    if (VerifyGreyCode(test))
+    {
+        std::cout << ":(" << std::endl;
+    }
+    else
+    {
+        std::cout << ":)" << std::endl;
+    }
 
     int x; 
     std::cin >> x; 
