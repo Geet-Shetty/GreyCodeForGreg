@@ -70,3 +70,5 @@ Testing/
 /.vs
 /GrayCode/.vs/GrayCode
 /GrayCode/x64/Debug
+/x64/Debug
+/CodeTester/x64/Debug
