@@ -67,3 +67,6 @@ vcpkg_installed/
 # test output & cache
 Testing/
 .cache/
+/.vs
+/GrayCode/.vs/GrayCode
+/GrayCode/x64/Debug
