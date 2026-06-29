@@ -79,6 +79,11 @@ GreyCode64 GreyCode(uint8_t n)
     return gcSeq;
 }
 
+// https://leetcode.com/problems/gray-code/solutions/8343369/simple-and-easy-solution-by-ankitjaiswal-hkkd
+// better version of my concept? 
+
+// https://leetcode.com/problems/gray-code/solutions/6805603/simplest-logic-evercrazy-explanation-def-ioqm
+// better version 
 std::vector<int> greycodecplusplus(int n)
 {
     if (n < 1 || n > 16)
