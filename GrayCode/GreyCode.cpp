@@ -1,10 +1,10 @@
 #include <set>
 #include "GreyCode.h"
 
-GreyCodeSequence GreyCode(uint8_t n)
+GreyCode64 GreyCode(uint8_t n)
 {
     // set up information for return value
-    GreyCodeSequence gcSeq{}; 
+    GreyCode64 gcSeq{}; 
 
     // can't go above 64 bits with uint64_t
     // n = 64 needs so much space so not allowed so bit shifting works
@@ -32,7 +32,7 @@ GreyCodeSequence GreyCode(uint8_t n)
     for (uint64_t i = 1; i < (uint64_t)n; i++)
     {
         // create next sequence list 
-        uint64_t seq_len = (uint64_t)pow(2, i + 1);
+        uint64_t seq_len = (uint64_t)pow(2, (double)(i + 1));
         uint64_t* seq = new uint64_t[seq_len](); 
 
         // create MSB zero section 
@@ -78,40 +78,3 @@ GreyCodeSequence GreyCode(uint8_t n)
     return gcSeq;
 }
 
-bool VerifyGreyCode(GreyCodeSequence greyCode)
-{
-    // create set to check for duplicates
-    std::set<uint64_t> gcSet{};
-    // insert first element since loops starts at 1
-    gcSet.insert(greyCode.sequence[0]); 
-
-    for (uint64_t i = 1; i < greyCode.sequence_len; i++)
-    {
-        // count how many bit changes between prev and curr elements in sequence 
-        int bitChanges = 0;
-        for (uint64_t j = 0; j < greyCode.nbits; j++)
-        {
-            uint64_t curr_masked = greyCode.sequence[i] & (1i64 << j); 
-            uint64_t prev_masked = greyCode.sequence[i - 1] & (1i64 << j);
-
-            if (curr_masked ^ prev_masked)
-            {
-                bitChanges++; 
-            }
-        }
-
-        // duplicate found 
-        if (!gcSet.insert(greyCode.sequence[i]).second)
-        {
-            return false; 
-        }
-
-        // bit changes over 1 means generation failed 
-        if (bitChanges != 1)
-        {
-            return false; 
-        }
-    }
-
-    return true; 
-}
