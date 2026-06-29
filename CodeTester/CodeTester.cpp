@@ -75,6 +75,7 @@ namespace CodeTester
             {
                 result.error = DUPLICATE; 
                 result.number = greyCode.sequence[i]; 
+                return result; 
             }
 
             // no bit changes or bit changes over 1 means generation failed 
@@ -82,6 +83,7 @@ namespace CodeTester
             {
                 result.error = BITCHANGE; 
                 result.number = bitChanges; 
+                return result; 
             }
         }
 
@@ -106,6 +108,34 @@ namespace CodeTester
         }
         return true; 
     }
+
+    TEST_CLASS(CodeTester64_CheckVerify)
+    {
+    public: 
+        TEST_METHOD(Verify_BitChange1)
+        {
+            GreyCode64 gc{}; 
+            gc.nbits = 3; 
+            gc.sequence_len = 8; 
+            uint64_t seq[] = { 0, 1, 7, 2, 6, 177, 5, 4 };
+            gc.sequence = seq;
+
+            Verify result = VerifyGreyCode64(gc); 
+            Assert::AreEqual(true, result.error == BITCHANGE && result.number == 2);
+        }
+
+        TEST_METHOD(Verify_Duplicate1)
+        {
+            GreyCode64 gc{};
+            gc.nbits = 3;
+            gc.sequence_len = 8;
+            uint64_t seq[] = { 0, 1, 3, 1, 3, 1, 3, 1 };
+            gc.sequence = seq;
+
+            Verify result = VerifyGreyCode64(gc);
+            Assert::AreEqual(true, result.error == DUPLICATE && result.number == 1);
+        }
+    };
 
 	TEST_CLASS(CodeTester64)
 	{

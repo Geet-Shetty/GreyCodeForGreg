@@ -2,7 +2,7 @@
 #include <bitset>
 #include "GreyCode.h"
 
-#define NBIT 5
+#define NBIT 3
 
 int main()
 {
