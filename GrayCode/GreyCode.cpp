@@ -1,6 +1,6 @@
 #include <set>
 #include "GreyCode.h"
-#include <vector>
+
 
 GreyCode64 GreyCode(uint8_t n)
 {
@@ -84,9 +84,9 @@ GreyCode64 GreyCode(uint8_t n)
 
 // https://leetcode.com/problems/gray-code/solutions/6805603/simplest-logic-evercrazy-explanation-def-ioqm
 // better version 
-std::vector<int> greycodecplusplus(int n)
+std::vector<int> greycodeLeetCode(int n)
 {
-    if (n < 1 || n > 16)
+    if (n < 1 || n > 31) // change to n > 16 for leetcode
     {
         std::vector<int> seq; 
         return seq; 
@@ -100,7 +100,8 @@ std::vector<int> greycodecplusplus(int n)
     for (int i = 1; i < (int)n; i++)
     {
         // create next sequence list 
-        std::vector<int> seq((uint32_t)(1 << (i + 1)));
+        // remove i64 for leetcode, just to get rid of warnings 
+        std::vector<int> seq(1i64 << (i + 1)); 
 
         // create MSB zero section 
         int j = 0;

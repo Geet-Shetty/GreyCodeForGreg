@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 
 /// <summary>
 /// All data for Grey Code Sequence 32 bits
@@ -44,3 +45,5 @@ struct GreyCode64
 /// <param name="n">number of bits</param>
 /// <returns>Grey Code Sequence</returns>
 GreyCode64 GreyCode(uint8_t n); 
+
+std::vector<int> greycodeLeetCode(int n); 
