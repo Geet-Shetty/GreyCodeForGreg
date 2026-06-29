@@ -4,12 +4,12 @@
 GreyCode64 GreyCode(uint8_t n)
 {
     // set up information for return value
-    GreyCode64 gcSeq{}; 
+    GreyCode64 gcSeq{};
 
     // can't go above 64 bits with uint64_t
     // n = 64 needs so much space so not allowed so bit shifting works
     // realistically after even around 
-    if (n > 63)
+    if (n > 63 || n == 0)
     {
         // explicitly set values just in case :P
         gcSeq.sequence = nullptr; 
@@ -20,7 +20,7 @@ GreyCode64 GreyCode(uint8_t n)
     
     // used pow instead of shift because for n = 64 would need 65 bits 
     // could use shift until 64 but honestly timed saved doesn't matter
-    gcSeq.sequence_len = (uint64_t)pow(2,n);
+    gcSeq.sequence_len = (1i64 << n);
     gcSeq.nbits = n; 
 
     // hardcode n = 1 sequence: 0 and 1 
@@ -32,7 +32,7 @@ GreyCode64 GreyCode(uint8_t n)
     for (uint64_t i = 1; i < (uint64_t)n; i++)
     {
         // create next sequence list 
-        uint64_t seq_len = (uint64_t)pow(2, (double)(i + 1));
+        uint64_t seq_len = 1i64 << (i + 1);
         uint64_t* seq = new uint64_t[seq_len](); 
 
         // create MSB zero section 
