@@ -88,6 +88,13 @@ namespace CodeTester
         return result;
     }
 
+    /// <summary>
+    /// check if two arrays are equal
+    /// </summary>
+    /// <param name="array1">first array</param>
+    /// <param name="array2">second array</param>
+    /// <param name="len">length of both arrays</param>
+    /// <returns></returns>
     bool ArrayEqual(uint64_t* array1, uint64_t* array2, uint64_t len)
     {
         for (uint64_t i = 0; i < len; i++)
