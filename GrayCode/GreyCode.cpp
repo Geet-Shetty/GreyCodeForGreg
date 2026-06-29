@@ -1,5 +1,6 @@
 #include <set>
 #include "GreyCode.h"
+#include <vector>
 
 GreyCode64 GreyCode(uint8_t n)
 {
@@ -78,3 +79,57 @@ GreyCode64 GreyCode(uint8_t n)
     return gcSeq;
 }
 
+std::vector<int> greycodecplusplus(int n)
+{
+    if (n < 1 || n > 16)
+    {
+        std::vector<int> seq; 
+        return seq; 
+    }
+
+    // hardcode n = 1 sequence: 0 and 1 
+    std::vector<int> prev_seq(2);
+    prev_seq[1] = 1;
+
+    // each sequence is built from the previous one
+    for (int i = 1; i < (int)n; i++)
+    {
+        // create next sequence list 
+        std::vector<int> seq((uint32_t)(1 << (i + 1)));
+
+        // create MSB zero section 
+        int j = 0;
+        for (;j < prev_seq.size() && seq.size() == (2 * prev_seq.size()); j++)
+        {
+            // copy previous sequence 
+            seq[j] = prev_seq[j];
+        }
+
+        // the mid point 
+        int index = j;
+
+        // create MSB one section 
+        uint32_t k = (uint32_t)prev_seq.size() - 1;
+        do
+        {
+            // copy previous sequence in reverse and shift one at n
+            if (index < seq.size())
+            {
+                seq[index] = prev_seq[k] | (1 << i);
+            }
+
+            index++;
+            k--;
+        } while (k > 0);
+
+        // do while exits before last element 
+        if (index == seq.size() - 1)
+        {
+            seq[index] = prev_seq[k] | (1 << i);
+        }
+
+        // update previous sequence 
+        prev_seq = seq;
+    }
+    return prev_seq; 
+}
